@@ -17,13 +17,11 @@ namespace WebAPI.Services
 
         async Task<List<Seller>> ISellerService.GetSeller()
         {
-            var response = await _httpClient.GetAsync("api/Vendedor");
-            var content = await response.Content.ReadAsStringAsync();
+            var resquest = await _httpClient.GetAsync("api/Vendedor");
+            var content = await resquest.Content.ReadAsStringAsync();
 
-            var testa = JsonConvert.DeserializeObject<List<Models.Seller>>(content);
-
-
-            return JsonConvert.DeserializeObject<List<Models.Seller>>(content);
+          
+            return JsonConvert.DeserializeObject<List<Seller>>(content);
 
         }
 
