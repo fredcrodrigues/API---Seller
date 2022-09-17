@@ -27,7 +27,7 @@
 			@foreach(var regions in Enum.GetValues(typeof(Regions)))
 			{
 					
-				<option value="@regions">@regions.ToString()</option>	
+				<option value="@regions">@(@regions.ToString() == "Centro_Oeste"? "Centro Oeste" : @regions) </option>	
 				
 			}
 			
