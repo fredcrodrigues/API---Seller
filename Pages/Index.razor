@@ -1,0 +1,37 @@
+﻿@page "/"
+@using WebAPI.Services
+@using WebAPI.Models
+
+@inject ISellerService Iseller
+
+
+<PageTitle>Index</PageTitle>
+
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<input @bind="data.Name" @bind:event="oninput" type="text"/>
+
+<input @bind="data.Email" @bind:event="oninput" type="email"/>
+
+<button @onclick="addDate">Enviar</button>
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+@code{
+
+	//private string nameSeller;
+	//private string emailSeller;
+	private Seller data = new Seller();
+
+	 void addDate()
+	{
+		
+		Console.WriteLine(data.Name);
+		Iseller.CreatSeller(data);
+	}
+
+	
+
+}

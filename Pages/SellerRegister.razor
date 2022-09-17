@@ -1,0 +1,65 @@
+﻿@page "/selleregister"
+
+@using WebAPI.Models
+@inject ISellerService Iseller
+
+<h3>Cadastro Vendedor</h3>
+
+<EditForm Model="data">
+
+	<div class="Name">
+		
+		<label>Nome:</label>
+		<InputText id="name" @bind-Value="data.Name"></InputText>
+
+	</div>	
+
+	<div class="email">
+		
+		<label>Email:</label>
+		<InputText id="email" @bind-Value="data.Email"></InputText>
+
+	</div>	
+	<div class="Regions">
+		
+		<label>Região:</label>
+		<InputSelect @bind-Value="data.Region" >
+			@foreach(var regions in Enum.GetValues(typeof(Regions)))
+			{
+					
+				<option value="@regions">@regions.ToString()</option>	
+				
+			}
+			
+		</InputSelect>
+
+	</div>	
+
+	<button @onclick="addDate">Enviar</button>
+
+</EditForm>
+
+
+@code {
+
+
+	private Seller data = new Seller();
+	
+
+	void addDate(){
+
+		/*foreach(var item in Enum.GetValues(typeof(Region))){
+			var test;
+			if(item.ToString() == numRegion)
+			{ 
+			}
+			data.Regions = "1";
+		}*/
+		Console.WriteLine(data.Region);
+
+		Iseller.CreatSeller(data);
+	}
+
+
+
+}

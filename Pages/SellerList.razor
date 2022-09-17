@@ -1,0 +1,30 @@
+﻿@page "/sellerslist"
+
+@using WebAPI.Services
+@using WebAPI.Models
+
+@inject ISellerService Iseller
+
+@if (sellrs == null)
+{
+	<h1>Load</h1>
+}
+else
+{
+	@foreach (var item in sellrs)
+	{
+		<p>@item.Name</p>
+	}
+
+}
+
+@code {
+	private List<Seller> sellrs;
+	
+
+	protected override async Task OnInitializedAsync()
+	{
+		sellrs = await Iseller.GetSeller();
+	} 
+
+}
