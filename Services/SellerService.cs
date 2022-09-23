@@ -27,16 +27,19 @@ namespace WebAPI.Services
 
         async Task ISellerService.CreatSeller(Seller date)
         {
-            
+
+            Console.WriteLine("Seller repsonse" + JsonConvert.SerializeObject(date));
+
+           
            
             var dataseller = new StringContent(
                 JsonConvert.SerializeObject(date),
                 Encoding.UTF8,
                 Application.Json);
             
-            var response = await _httpClient.PostAsync("api/Vendedor", dataseller);
+            var request = await _httpClient.PostAsync("api/Vendedor", dataseller);
 
-            response.EnsureSuccessStatusCode();
+            request.EnsureSuccessStatusCode(); ///opional
         }
     }
 }

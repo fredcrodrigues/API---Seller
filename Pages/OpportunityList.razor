@@ -1,0 +1,33 @@
+﻿@page "/opportunityList"
+
+@using WebAPI.Models;
+@using WebAPI.Services;
+
+@inject IOpportunityService Iopportunity;
+
+<h3>OpportunityList</h3>
+
+@if(opportunity == null)
+{
+	<p>Sem oportunidades</p>
+}
+else
+{
+	@foreach(var item in opportunity)
+	{
+		<p>@item.Name</p>
+		<p>@item.Cnpj.Number</p>
+		<p>@item.Value</p>
+	}
+}
+
+@code {
+	private List<Opportunity> opportunity;
+
+	protected override async Task OnInitializedAsync()
+	{
+		opportunity = await Iopportunity.GetOpporttunity();
+	}
+
+
+}

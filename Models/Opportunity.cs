@@ -2,14 +2,14 @@
 {
     public class Opportunity
     {
-        public string Id { get; set; }
+        public string? Id { get; set; } = null!;
 
-        public string CNPJ { get; set; }
+        public CNPJ Cnpj { get; set; } = null!;
 
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
 
         public decimal Value { get; set; }
 
-        public Seller Veller { get; set; }
+        public Seller Seller { get; set; } = null!;
     }
 }

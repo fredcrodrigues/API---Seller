@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "no/5dfpfTUXv8sdxi9gA7ulbBh8QlUFcxv3twlDQfv8=",
+  "Hash": "9r2FIjbqSAaef5NabZKJy9P/hhxBUJGlIZ+8NtT/ncc=",
   "Source": "WebAPI",
   "BasePath": "_content/WebAPI",
   "Mode": "Default",
@@ -270,6 +270,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Fredson\\source\\repos\\WebAPI\\wwwroot\\js\\script.js",
+      "SourceId": "WebAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fredson\\source\\repos\\WebAPI\\wwwroot\\",
+      "BasePath": "_content/WebAPI",
+      "RelativePath": "js/script.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\script.js"
     }
   ]
 }

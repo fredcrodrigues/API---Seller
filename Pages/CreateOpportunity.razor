@@ -1,0 +1,121 @@
+﻿@page "/createOpportunity"
+@using WebAPI.Models;
+@using Newtonsoft.Json;
+@using Newtonsoft.Json.Linq;
+
+@inject IOpportunityService  Iopportunity;
+@inject ISellerService Iseller;
+@inject IJSRuntime IJSRuntime;
+@inject NavigationManager NavManager;
+
+
+
+<h3>CreateOpportunity</h3>
+
+@if(sellers == null)
+{
+	<p>Carregando</p>
+
+}else{
+	
+
+<EditForm Model="Form" >
+
+
+	<ValidationSummary/>
+	<div class="Name">
+
+		<label>Nome:</label>
+		<InputText type="text" @bind-Value="Form.Name"></InputText>
+
+	</div>
+	
+	<div class="Value">
+		<label>Value:</label>
+		<InputNumber @bind-Value="Form.Value"></InputNumber>
+	</div>
+
+	<div  class="Cnpj">
+		<label>CNPJ:</label>
+		<InputText @bind-Value="value.Number" ></InputText>
+
+	</div>
+	
+	<div class="Seller">
+
+		<label>Vendedor</label>
+
+		<InputSelect @bind-Value="seller.Id">
+			
+			<option value="0"> Selecione...</option>
+			
+			@foreach(var item in sellers){
+					
+					<option value="@item.Id">@item.Name</option>
+					
+			}
+
+		</InputSelect>
+		
+		
+		
+	</div>
+
+	<button @onclick="Teste" type="submit">Enviar</button>
+
+
+
+</EditForm>
+
+	
+}
+
+@code {
+
+	private List<Seller> sellers;
+	private Opportunity Form =  new Opportunity();
+	private CNPJ value = new CNPJ();
+	private Seller seller = new Seller(){
+
+		// Assgn value null to attributos Seller
+		Region = 0,
+		Email = "null",
+		Name = "null"
+
+	};
+
+	// Initializend the Page get date seller
+	protected override async Task OnInitializedAsync()
+	{
+		sellers = await Iseller.GetSeller();
+
+
+		// alert to user for register seller
+		if(sellers.Count() == 0)
+		{
+			await IJSRuntime.InvokeVoidAsync("Alert", "O cadastro do Vendedor é obrigatório");
+			NavManager.NavigateTo("/");
+
+		}
+
+	}
+
+	async Task Teste()
+	{
+		// Create New Opportunity
+
+		var data = new Opportunity
+		{
+			Name = Form.Name,
+			Cnpj = value,
+			Value = Form.Value,
+			Seller = seller
+		};
+
+		await Iopportunity.CreateOpprotunity(data);
+	}
+
+
+
+
+}
