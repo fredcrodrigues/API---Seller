@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9r2FIjbqSAaef5NabZKJy9P/hhxBUJGlIZ+8NtT/ncc=",
+  "Hash": "Dgx51l7ID/SJ+OkqwdxlxuFaG/Yu26VUwvxJDvdTpR0=",
   "Source": "WebAPI",
   "BasePath": "_content/WebAPI",
   "Mode": "Default",
@@ -270,6 +270,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Fredson\\source\\repos\\WebAPI\\wwwroot\\img\\background.png",
+      "SourceId": "WebAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fredson\\source\\repos\\WebAPI\\wwwroot\\",
+      "BasePath": "_content/WebAPI",
+      "RelativePath": "img/background.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\background.png"
     },
     {
       "Identity": "C:\\Users\\Fredson\\source\\repos\\WebAPI\\wwwroot\\js\\script.js",

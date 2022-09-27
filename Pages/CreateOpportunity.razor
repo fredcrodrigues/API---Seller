@@ -18,17 +18,22 @@
 
 }else{
 	
-
+	
 <EditForm Model="Form" >
-
-
 	<ValidationSummary/>
-	<div class="Name">
+	<div class="form-group">
+	
+		<div class="Name">
 
-		<label>Nome:</label>
-		<InputText type="text" @bind-Value="Form.Name"></InputText>
+			
+			<label for="inputName">Nome do Vendedor</label>
+			
+			<InputText  type="text" placeholder="Nome" @bind-Value="Form.Name" />
 
+		</div>
 	</div>
+
+	
 	
 	<div class="Value">
 		<label>Value:</label>
@@ -41,7 +46,9 @@
 
 	</div>
 	
-	<div class="Seller">
+	<div class="form-group">
+
+	 <div class="Seller">
 
 		<label>Vendedor</label>
 
@@ -59,6 +66,7 @@
 		
 		
 		
+		</div>
 	</div>
 
 	<button @onclick="Teste" type="submit">Enviar</button>

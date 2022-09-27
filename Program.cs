@@ -12,7 +12,7 @@ builder.Services.AddSingleton<IOpportunityService, OpportunityService>();
 
 builder.Services.AddHttpClient("APIVENDAS", c =>
         c.BaseAddress = new Uri("https://localhost:7251/")
-); ;
+); 
 
 
 

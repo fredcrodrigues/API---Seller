@@ -27,7 +27,6 @@ namespace WebAPI.Services
         {
           
 
-            Console.WriteLine("Depois" + JsonConvert.SerializeObject(date));
 
             var serializerOptions = new System.Text.Json.JsonSerializerOptions
             {
@@ -41,9 +40,7 @@ namespace WebAPI.Services
               Encoding.UTF8,
               Application.Json);
 
-            Console.WriteLine("Data Seller " + dataseller.ReadAsStringAsync().Result);
-            
-
+          
             var request = await _httpClient.PostAsync("api/Oportunidade", dataseller);
 
             Console.WriteLine("Resultado final" + request.Content.ReadAsStringAsync().Result);

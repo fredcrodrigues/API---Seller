@@ -7,35 +7,44 @@
 
 <EditForm Model="data">
 
-	<div class="Name">
+	<div class="form-group">
+		<div class="nameSeller">
+			<label for="inputName">Nome do Vendedor:</label>
+			<InputText id="name" placeholder="Nome" class="form-control" @bind-Value="data.Name"></InputText>	
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<div class="emailSeller">
+			<label for="inputEmail">Email:</label>
+			<InputText id="email" typeof="email" @bind-Value="data.Email" placeholder="Email" class="form-control"/>
+		</div>	
+	</div>
+
+	<div class="form-group">
+	
+		<div class="regionSeller">
 		
-		<label>Nome:</label>
-		<InputText id="name" @bind-Value="data.Name"></InputText>
+			<label for="inputRegion">Região:</label>
+			<InputSelect class="form-control"  placeholder="Selecionar..." @bind-Value="data.Region" >
+				@foreach(var regions in Enum.GetValues(typeof(Regions)))
+				{
+					@if(@regions.ToString() == "Vazio"){
+						<option value="@regions">Selecione...</option>
+					}
+					else
+					{
+						<option value="@regions">@(@regions.ToString() == "Centro_Oeste"? "Centro Oeste" : @regions) </option>			
+					}
 
-	</div>	
+				}
+			</InputSelect>
 
-	<div class="email">
-		
-		<label>Email:</label>
-		<InputText id="email" @bind-Value="data.Email"></InputText>
+		</div>	
+	</div>
+	
 
-	</div>	
-	<div class="Regions">
-		
-		<label>Região:</label>
-		<InputSelect @bind-Value="data.Region" >
-			@foreach(var regions in Enum.GetValues(typeof(Regions)))
-			{
-					
-				<option value="@regions">@(@regions.ToString() == "Centro_Oeste"? "Centro Oeste" : @regions) </option>	
-				
-			}
-			
-		</InputSelect>
-
-	</div>	
-
-	<button @onclick="addDate">Enviar</button>
+	<button class="btn btn-primary" @onclick="addDate">Enviar</button>
 
 </EditForm>
 
