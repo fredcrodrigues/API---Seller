@@ -10,73 +10,81 @@
 
 
 
-<h3>CreateOpportunity</h3>
+<div class="Tilte-Opportunity">
+	<h3>Criar Oportunidade</h3>
 
-@if(sellers == null)
-{
-	<p>Carregando</p>
+</div>
 
-}else{
+<div class="Form-Opportunity">
+
+	@if(sellers == null)
+	{
+		<p>Carregando...</p>
+
+	}else{
 	
 	
-<EditForm Model="Form" >
-	<ValidationSummary/>
-	<div class="form-group">
+	<EditForm Model="Form">
+
+		<ValidationSummary/>
+
+		<div class="form-group">
 	
-		<div class="Name">
+			<div class="NameOpportunity">
 
-			
-			<label for="inputName">Nome do Vendedor</label>
-			
-			<InputText  type="text" placeholder="Nome" @bind-Value="Form.Name" />
+				<label for="inputName">Nome da Oportunitidade </label>
+				<InputText class="form-control" type="text" placeholder="Nome" @bind-Value="Form.Name" />
 
+			</div>
 		</div>
-	</div>
 
 	
-	
-	<div class="Value">
-		<label>Value:</label>
-		<InputNumber @bind-Value="Form.Value"></InputNumber>
-	</div>
-
-	<div  class="Cnpj">
-		<label>CNPJ:</label>
-		<InputText @bind-Value="value.Number" ></InputText>
-
-	</div>
-	
-	<div class="form-group">
-
-	 <div class="Seller">
-
-		<label>Vendedor</label>
-
-		<InputSelect @bind-Value="seller.Id">
-			
-			<option value="0"> Selecione...</option>
-			
-			@foreach(var item in sellers){
-					
-					<option value="@item.Id">@item.Name</option>
-					
-			}
-
-		</InputSelect>
-		
-		
-		
+		<div class="form-group">
+			<div class="valueOpportunity">
+				<label for="inputValue">Value:</label>
+				<InputNumber placeholder="Valor" class="form-control" @bind-Value="Form.Value"></InputNumber>
+			</div>
 		</div>
-	</div>
 
-	<button @onclick="Teste" type="submit">Enviar</button>
+		<div class="form-group">
+			<div  class="cnpjOpportunity">
+				<label  for="inputCnpj">CNPJ:</label>
+				<InputText placeholder="CNPJ" class="form-control" @bind-Value="value.Number" ></InputText>
 
-
-
-</EditForm>
+			</div>
+		</div>
 
 	
-}
+		<div class="form-group">
+
+		 <div class="sellerOpportunity">
+
+			<label for="inputSeller">Vendedor</label>
+
+			<InputSelect class="form-control" @bind-Value="seller.Id">
+			
+				<option value="0"> Selecione...</option>
+			
+				@foreach(var item in sellers){
+					
+						<option value="@item.Id">@item.Name</option>
+					
+				}
+
+			</InputSelect>
+		
+			</div>
+		</div>
+
+		<button  class="btn btn-primary" @onclick="Teste" type="submit">Enviar</button>
+
+
+
+	</EditForm>
+
+	
+	}
+</div>
 
 @code {
 
