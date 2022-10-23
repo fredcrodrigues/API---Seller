@@ -1,0 +1,306 @@
+﻿@page "/opportunity"
+
+@using SalesDB.shared.Models;
+@using Sales.Client.Services;
+@using System.Text.RegularExpressions;
+
+@inject IOpportunityService Iopportunity;
+@inject ISellerService Iseller;
+@inject IJSRuntime IJSRuntime;
+@inject NavigationManager NavManager;
+
+<!-- Tittle page -->
+<div class="main-title">
+	<h4 class="title">Oportunidades</h4>
+</div>
+
+<!-- button register seller or opportunity -->
+<div class="add-seller-opportunity">
+	<div class="btn-add">
+		<button class="btn btn-info"  data-bs-toggle="modal"  data-bs-target="#modalopportunity"><i class="bi bi-plus"></i>Adicionar</button>
+	</div>
+	
+</div>
+
+
+
+@if(opportunities == null)
+{
+
+	<div class="title-main display-4 ">
+
+		<h5 class="title">Carregando...</h5>
+
+	</div>
+
+}else{
+		<!--Loading datatable bootstrap -->
+		<div>
+			<table id="datatable" class="table table-striped display" style="width:100%">
+				<thead>
+
+						<tr>
+							<th>Nome</th>
+							<th>Valor</th>
+							<th>Vendedor</th>
+							<th>Ações</th>
+
+						</tr>
+				</thead>
+				
+				@if(opportunities.Count() == 0){
+					<tbody>
+				
+							<tr>
+								<td>Sem Oportunidades Cadastradas</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+					</tbody>
+			
+				}else{
+					<tbody>
+						@foreach(var item in opportunities){
+									<tr>
+										<td>@item.Name</td>
+							
+										<td>@item.Value</td>
+							
+										<td>@item.Seller.Name</td>
+
+
+										<td>
+
+											<!--Button delete-->
+											<button class="btn-table"  @onclick="() => DeleteOpportunity(item)" value="@item.Id"><i class="bi bi-trash3"></i></button>
+										</td>
+									</tr>
+			
+						}
+					</tbody>	
+					}
+			</table>
+		</div>
+	}
+	
+<!--modal for create Opportunity-->
+<div class="modal fade" id="modalopportunity" data-bs-keyboard="false" role="dialog"  data-bs-backdrop="static" tabindex="-1"  aria-labelledby="modal-opportunity" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+
+			  <div class="modal-header">
+				<h5 class="modal-title">Criar Oportunidadel</h5> 
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			  </div>
+
+			  <div class="modal-body">
+						
+						<!-- Form blazor -->
+						<EditForm Model="opportunity" OnValidSubmit="addOpportunity">
+						
+									<div class="form-group">
+	
+										<div class="nameOpportunity">
+											<label for="inputName">Nome da Oportunitidade </label>
+											<InputText class="form-control" type="text" placeholder="Nome" @bind-Value="opportunity.Name" />
+
+											
+										</div>
+									</div>
+
+									<div class="form-group">
+	
+										<div class="valueOpportunity">
+											<label for="inputName">Valor da Oportunidade</label>
+											<InputNumber class="form-control" placeholder="Valor" @bind-Value="opportunity.Value" />
+										
+										</div>
+									</div>
+
+									<div class="form-group">
+	
+										<div class="cnpjOpportunity">
+											<label for="inputName">Cnpj</label>
+											<InputText class="form-control" placeholder="CNPJ" @bind-Value="value.Number"/>
+										
+										</div>
+									</div>
+
+									<div class="form-group">
+	
+										<div class="sellerOpportunity">
+											<label for="inputName">Cnoj</label>
+											<InputSelect class="form-control" @bind-Value="seller.Id">
+												@if (sellers == null)
+												{
+													<p>Carregando...</p>
+	
+												}else{
+												
+													<option value="0">Selecione...</option>
+													
+													foreach(var item in sellers)
+													{
+
+														<option value="@item.Id">@item.Name</option>
+	
+													}
+													
+												}
+
+											</InputSelect>
+										
+										</div>
+									</div>
+									<div class="modal-footer">
+										<!--<button type="button"  id="btn-close" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>-->
+										<!--button Send data-->
+										<button type="submit" id="btn-create" data-bs-dimiss="modal" class="btn btn-primary create">Criar</button>
+									</div>
+									
+								
+						</EditForm>
+					
+			 </div>	 
+		</div>
+	  </div>
+</div>
+
+@code {
+
+
+	// list opportunies
+	private List<Opportunity> opportunities;
+
+	// list sellrs 
+	private List<Seller> sellers;
+
+
+	//new oppotunity
+	private Opportunity opportunity = new Opportunity();
+
+	//new cnpj for create opprotunity
+	private CNPJ value = new CNPJ();
+
+
+	private Seller seller = new Seller(){
+
+		// Assgn value null to attributos Seller
+		Region = 0,
+		Email = "null",
+		Name = "null"
+
+	};
+
+
+	//initialiezed component blazor
+	protected override async Task OnInitializedAsync()
+	{
+		var j = 0;
+
+		opportunities = await Iopportunity.Get();
+
+		sellers = await Iseller.GetSeller();
+
+		// Remove all sellrs registers in opportunities 
+
+		while(opportunities.Count() != 0 && j < opportunities.Count())
+		{
+
+			for(var i=0; i < sellers.Count(); i++)
+			{
+
+				if(opportunities[j].Seller.Id == sellers[i].Id)
+				{
+
+					sellers.RemoveAt(i);
+
+				}
+			}
+
+			j++;
+		}
+
+
+		// alert to user for register seller
+		if(sellers.Count() == 0)
+		{
+			await IJSRuntime.InvokeVoidAsync("Alert", "O cadastro do Vendedor é obrigatório", false);
+			NavManager.NavigateTo("/");
+
+		}
+	}
+
+	//redering datable js 
+	protected override async Task OnAfterRenderAsync (bool firtsredering)
+	{	
+		await IJSRuntime.InvokeAsync<object>("Document");
+
+	}
+
+	//Get Id
+	protected async Task GetOpportunityId(Seller data)
+	{
+
+		opportunity = await Iopportunity.GeId(data.Id);
+		//alterTitle(false);
+	}
+
+	async void addOpportunity(){
+
+		Console.WriteLine("Testando");
+
+
+
+		var data = new Opportunity
+			{
+				Name = opportunity.Name,
+				Cnpj = value,
+				Value = opportunity.Value,
+				Seller = seller
+			};
+
+
+
+		if(data.Cnpj.Number == null  || data.Seller.Id == null  ||  data.Value == null || data.Name == null )
+		{
+			IJSRuntime.InvokeVoidAsync("Alert", "Todos os Campos São Obrigatórios", false);
+		}
+		else
+		{ 	
+			// adjustemed field CNPJ
+			data.Cnpj.Number = Regex.Replace(data.Cnpj.Number, @"[a-z-,./]", "");
+			
+
+			IJSRuntime.InvokeVoidAsync("Disable");
+
+			await Iopportunity.Create(data);
+
+			IJSRuntime.InvokeVoidAsync("Alert", "Oportunidade Cadastrada com Sucesso", true);
+		}
+				
+
+	}
+
+
+	///Uodate date
+
+	/*protected async Task UpdateSeller()
+		{
+		await Iseller.Update(seller.Id, seller);	
+		NavManager.NavigateTo("/");	
+	}*/
+
+
+	async void DeleteOpportunity(Opportunity data)
+	{
+		await Iopportunity.Delete(data.Id);
+		IJSRuntime.InvokeVoidAsync("Alert", "Vendedor Deletado com Sucesso!", true);
+
+
+	}
+
+
+
+}

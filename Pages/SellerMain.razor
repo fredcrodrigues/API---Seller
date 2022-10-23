@@ -1,0 +1,262 @@
+﻿@page "/sellers"
+
+@using Sales.Client.Services;
+@using SalesDB.shared.Models;
+
+@inject ISellerService Iseller;
+@inject IJSRuntime IJSRuntime;
+@inject NavigationManager NavManager;
+
+
+<!-- Tittle page -->
+<div class="main-title">
+	<h4 class="title">Vendedores</h4>
+</div>
+
+<!-- button register seller or opportunity -->
+<div class="add-seller-opportunity">
+	<div class="btn-add">
+		<button   data-bs-toggle="modal" @onclick="() => alterTitle(true)" data-bs-target="#modalSeller"><i class="bi bi-plus"></i>Adicionar</button>
+	</div>
+	
+</div>
+
+<!--	Loading data seller -->
+
+@if (sellrs == null)
+	{	
+		<div class="title-main display-4 ">
+
+			<h5 class="title">Carregando...</h5>
+
+		</div>
+		
+	
+	}
+	else
+	{
+		<!--	Loading datatable bootstrap -->
+		<div>
+			<table id="datatable" class="table table-striped display" style="width:100%; height:100%;">
+			<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Email</th>
+						<th>Regiao</th>
+						<th>Ações</th>
+
+					</tr>
+			</thead>
+			<tbody>
+
+				@foreach (var item in sellrs)
+				{
+						
+					<tr>
+					
+						<td>@item.Name</td>
+						<td>@item.Email</td>
+						<td>@item.Region</td>
+						<td>
+
+							<!--button edit info -->
+							<button class="btn-table" data-bs-toggle="modal"  data-bs-target="#modalSeller"  @onclick="() => GetSeller(item)" value="@item.Id"><i class="bi bi-pencil-square"></i></button>	
+							
+							
+							<!--button delete info -->
+							<button class="btn-table"  @onclick="() => DeleteSeller(item)" value="@item.Id"><i class="bi bi-trash3"></i></button>
+
+						</td>
+									
+					</tr>
+
+				}
+
+			</tbody>
+					
+		</table>
+		</div>
+		
+}
+
+
+<!-- modal bootstrap for register and update data-->
+<div class="modal fade" id="modalSeller" data-bs-keyboard="false" role="dialog"  data-bs-backdrop="static" tabindex="-1" aria-labelledby="seller-modal" aria-hidden="true">
+	<div class="modal-dialog">
+	
+		<div class="modal-content">
+			
+			<div class="modal-header">
+						<h5 class="modal-title" id="updateseller">@titleModal</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+		<!-- body modal -->
+		<div class="modal-body">
+
+			<!--Edit form of blazor -->
+
+			<EditForm Model="seller" OnValidSubmit="addSeller">
+			
+					
+				<div class="form-group">
+					<div class="nameSeller">
+						<label for="inputName">Nome do Vendedor:</label>
+						<InputText id="name" placeholder="Nome" class="form-control"  @bind-Value="seller.Name"/>								
+						
+					</div>
+				</div>
+	
+				<div class="form-group">
+					<div class="emailSeller">
+						<label for="inputEmail">Email:</label>
+							<InputText id="email" typeof="email" @bind-Value="seller.Email" placeholder="Email" class="form-control"/>
+							
+					</div>	
+				</div>
+
+				<div class="form-group">
+					<div class="regionSeller">
+						<label for="inputRegion">Região:</label>
+						<InputSelect class="form-control"  placeholder="Selecionar..." @bind-Value="seller.Region" >
+							
+							@foreach(var regions in Enum.GetValues(typeof(Regions)))
+							{
+								@if(regions.ToString() == "Vazio"){
+									<option value="@regions">Selecione...</option>
+								}
+								else
+								{
+									<option value="@regions">@(@regions.ToString() == "Centro_Oeste"? "Centro Oeste" : @regions) </option>			
+								}
+
+							}
+					
+						</InputSelect>
+						
+					</div>	
+				</div>
+
+				<!--Footer modal-->
+
+					<div class="modal-footer">
+						
+							@if(@titleModal == "Alterar Dados")
+							{
+								<button type="button" @onclick="UpdateSeller" class="btn btn-primary">Alterar Dados</button>
+							}
+							else
+							{
+								<button type="submit"  class="btn btn-primary">Criar</button>
+
+							}
+
+					</div>
+			</EditForm>	  
+		</div>	 
+	</div>
+	</div>
+</div>
+
+@code {
+
+	// create new seller
+	private Seller seller = new Seller();
+
+	//list seller
+	private List<Seller> sellrs;
+
+	//atribute to alter title modal and flag to <Editform> 
+	private string titleModal;
+
+
+
+	protected override async Task OnInitializedAsync()
+	{
+		sellrs = await Iseller.GetSeller();
+
+	}
+
+	protected override async Task OnAfterRenderAsync (bool firtsredering)
+	{	
+		await IJSRuntime.InvokeAsync<object>("Document");
+
+	}
+
+	// Path Endpoits Server
+
+	//Get Id
+
+	public async Task  GetSeller(Seller data)
+	{
+		seller = await Iseller.GetSellerId(data.Id);
+		alterTitle(false);
+
+	}
+
+	async Task addSeller(){
+
+		if(seller.Name == null || seller.Email == null || seller.Region == null)
+		{
+			IJSRuntime.InvokeVoidAsync("Alert", "Todos os Campos São Obrigatórios", false);
+
+		}
+		else
+		{
+			/* Disable Buttons */
+			IJSRuntime.InvokeVoidAsync("Disable");
+
+			/* Create new seller API*/
+			Iseller.CreatSeller(seller);
+		
+			/* Js Alert*/
+			IJSRuntime.InvokeVoidAsync("Alert", "Vendedor Cadastrado com Sucesso",  true);
+		
+		}
+	
+		
+	}
+	
+	/*Update date*/
+	async Task UpdateSeller()
+	{
+		
+		await Iseller.Update(seller.Id, seller);	
+
+		/* Js Alert*/
+		IJSRuntime.InvokeVoidAsync("Alert", "Vendedor Deletado com Sucesso!", true);
+		
+	}
+
+	///Delete date
+	 async Task DeleteSeller(Seller data)
+	{
+		await Iseller.Delete(data.Id);
+		
+		/* Js Alert*/
+		IJSRuntime.InvokeVoidAsync("Alert", "Vendedor Deletado com Sucesso!", true);
+		
+	
+
+	}
+
+
+	// function to alter title modal and adjustemeted field
+
+	void alterTitle(bool flag)
+	{
+
+		if(flag)
+		{
+			titleModal = "Criar dados";
+			seller = new Seller();
+		}
+		else
+		{
+			titleModal = "Alterar Dados";
+		}
+
+	}
+
+	
+}

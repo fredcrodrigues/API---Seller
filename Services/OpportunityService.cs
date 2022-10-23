@@ -1,9 +1,9 @@
-﻿using WebAPI.Models;
+﻿using SalesDB.shared.Models;
 using Newtonsoft.Json;
 using static System.Net.Mime.MediaTypeNames;
 using System.Text;
 
-namespace WebAPI.Services
+namespace Sales.Client.Services
 {
     public class OpportunityService : IOpportunityService
     {
@@ -14,25 +14,34 @@ namespace WebAPI.Services
             _httpClient = Ihttpfactory.CreateClient("APIVENDAS");
         }
 
-        async Task<List<Opportunity>> IOpportunityService.GetOpporttunity()
+        //Get Opportunity
+        async Task<List<Opportunity>> IOpportunityService.Get()
         {
-            Console.WriteLine("Testando");
-            var request = await _httpClient.GetAsync("api/Oportunidade");
+          
+            var request = await _httpClient.GetAsync("api/Opportunity");
             var content = await request.Content.ReadAsStringAsync();
 
+
+            var teste = JsonConvert.DeserializeObject<List<Opportunity>>(content);
+       
+          
             return JsonConvert.DeserializeObject<List<Opportunity>>(content);
         }
 
-        async Task IOpportunityService.CreateOpprotunity(Opportunity date)
+        //Get Id
+        async Task<Opportunity> IOpportunityService.GeId(string id)
+        {
+            var resquest = await _httpClient.GetAsync($"api/Opportunity/{id}");
+            var content = await resquest.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<Opportunity>(content);
+        }
+
+        //Create
+        async Task IOpportunityService.Create(Opportunity date)
         {
           
-
-
-            var serializerOptions = new System.Text.Json.JsonSerializerOptions
-            {
-                PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase,
-                WriteIndented = true
-            };
+           
 
 
             var dataseller = new StringContent(
@@ -41,10 +50,30 @@ namespace WebAPI.Services
               Application.Json);
 
           
-            var request = await _httpClient.PostAsync("api/Oportunidade", dataseller);
+            var request = await _httpClient.PostAsync("api/Opportunity", dataseller);
 
-            Console.WriteLine("Resultado final" + request.Content.ReadAsStringAsync().Result);
+           
             request.EnsureSuccessStatusCode();
+        }
+
+
+        //update
+       /* async Task IOpportunityService.Update(string id, Opportunity date)
+        {
+            var request = await _httpClient.PutAsJsonAsync($"/api/opportunity/{id}", date);
+
+            Console.WriteLine("Dados Alterado com Sucesso");
+
+            request.EnsureSuccessStatusCode();
+        }*/
+
+        //Delete
+        async Task IOpportunityService.Delete(string id)
+        {
+            var request = await _httpClient.DeleteAsync($"/api/opportunity/{id}");
+
+            request.EnsureSuccessStatusCode();
+
         }
 
     }

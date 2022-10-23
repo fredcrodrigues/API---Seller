@@ -19,24 +19,16 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Fredson/source/repos/WebAPI/Pages/CreateOpportunity.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3JlYXRlT3Bwb3J0dW5pdHkucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Fredson/source/repos/WebAPI/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Fredson/source/repos/WebAPI/Pages/OpportunityList.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3Bwb3J0dW5pdHlMaXN0LnJhem9y
+[C:/Users/Fredson/source/repos/WebAPI/Pages/OpportunityMain.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcT3Bwb3J0dW5pdHlNYWluLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Fredson/source/repos/WebAPI/Pages/SellerList.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VsbGVyTGlzdC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Fredson/source/repos/WebAPI/Pages/SellerRegister.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VsbGVyUmVnaXN0ZXIucmF6b3I=
+[C:/Users/Fredson/source/repos/WebAPI/Pages/SellerMain.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VsbGVyTWFpbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Fredson/source/repos/WebAPI/Shared/SurveyPrompt.razor]

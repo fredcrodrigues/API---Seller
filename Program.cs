@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
+using System.Web;
 using Microsoft.AspNetCore.Components.Web;
-using WebAPI.Services;
+using Sales.Client.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,10 +10,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<ISellerService, SellerService>();
 builder.Services.AddSingleton<IOpportunityService, OpportunityService>();
-
-builder.Services.AddHttpClient("APIVENDAS", c =>
-        c.BaseAddress = new Uri("https://localhost:7251/")
-); 
+//alter BaseAdress
+builder.Services.AddHttpClient("APIVENDAS", c => c.BaseAddress = new Uri("https://localhost:7001/")); 
 
 
 

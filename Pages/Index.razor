@@ -1,21 +1,60 @@
 ﻿@page "/"
-@using WebAPI.Services
-@using WebAPI.Models
+@using Sales.Client.Services;
+@using SalesDB.shared.Models;
 
 @inject ISellerService Iseller
+@inject NavigationManager NavManager
 
 
 <PageTitle>Index</PageTitle>
 
+<div class="title-info">
+	<div class="title-main">
+		<h1>Gerenciador de Vendas e Oportunidade</h1>
+	</div>
+	<div class="lead">
+		<p>Este é um desafio disponível neste <a href="https://github.com/fredcrodrigues/API-VENDAS/blob/main/Desafio.txt">link</a>. Esse é Sitema de Gerenciamento de Vendas e Oportunidades consumindo uma API com MongoDB</p>
+	</div>
 
-<h1>Bem Vindo</h1>
+</div>
 
-<h1>Gerenciamento de vendas e seus vendedores</h1>
+<div class="row">
+  <div class="col-sm-4">
+		 <div class="card bg-light mb-3" style="max-width: 18rem;">
+			<div class="card-header">Configurações</div>
+				<div class="card-body">
+				<h5 class="card-title">API</h5>
+				<p class="card-text">Essa plataform a é uma API que define configurações para gerenciamento de vendas e oportunidades conforme o Desafio proposto.</p>
+				</div>
+		</div>
+    </div>
+ 
+  <div class="col-sm-4">
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+			<div class="card-header">Tecnologia</div>
+				<div class="card-body">
+				<h5 class="card-title">C#</h5>
+				<p class="card-text">C# e o .NET é a principal tecnologia adotada neste sistema, aplicando conceitos de interfaces , orientação a aobjetos e entre outros.</p>
+				</div>
+		</div>
+  </div>
+
+  <div class="col-sm-4">
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+			<div class="card-header">Banco de Dados</div>
+				<div class="card-body">
+				<h5 class="card-title">Mongo DB</h5>
+				<p class="card-text">MongoDB é usado para teste desta API blazor com a afinalidade de fazer as  operações princicais conforme os endpoints existentes.</p>
+				</div>
+		</div>
+  </div>
+</div>
 
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
+   
 @code{
-
+	
 	
 
 }
