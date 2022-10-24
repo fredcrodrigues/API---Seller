@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "+YfdzVndvaMkH9g4+lkKfGB17oo3Zo909uf6MAch8N/U6N4AwrElwhony9LmAEn5vp/3KGA5KN34yAybC4PZWw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Fredson\\source\\repos\\API-Seller\\SalesDB.shared\\SalesDB.shared.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Fredson\\.nuget\\packages\\mongodb.bson\\2.17.1\\mongodb.bson.2.17.1.nupkg.sha512",
+    "C:\\Users\\Fredson\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\Fredson\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
+    "C:\\Users\\Fredson\\.nuget\\packages\\newtonsoft.json.schema\\3.0.14\\newtonsoft.json.schema.3.0.14.nupkg.sha512",
+    "C:\\Users\\Fredson\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

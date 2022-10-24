@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "OPteKsuP6kQmKD6Z9v8lu+FVheKwhxsx7Va39BhFDlk=",
+  "Source": "SalesDB.Server",
+  "BasePath": "_content/SalesDB.Server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
