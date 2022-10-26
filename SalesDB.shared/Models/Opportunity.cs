@@ -9,22 +9,22 @@ namespace SalesDB.shared.Models
     {
 		[BsonId]
 		[BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; } = null!;
+        public string? Id { get; set; }
         
         [BsonElement("cnpj")]
 
-        public CNPJ Cnpj { get; set; } = null!;
-        
+        public CNPJ? Cnpj { get; set; }
+
         [BsonElement("name")]
-        [Required(ErrorMessage = "Campo Obrigatório")]
-        public string Name { get; set; } = null!;
-        
+       
+        public string? Name { get; set; }
+
         [BsonElement("value")]
-        [Required(ErrorMessage = "Campo Obrigatório")]
-        public decimal? Value { get; set; }
-     
+       
+        public decimal? Value { get; set; } 
+
         [BsonElement("seller")]
        
-        public Seller Seller { get; set; } = null!;
+        public Seller? Seller { get; set; } 
     }
 }
